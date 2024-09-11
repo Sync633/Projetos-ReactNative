@@ -30,13 +30,23 @@ export function useTaskTable(){
         }
     }
     
+    async function search(txt: string){
+        const statement =
+        await database.prepareAsync("SELECT * FROM tasks WHERE description LIKE $txt");
 
-    /* FUNCIONALIDADE 2
-    {
-    
+        try {
+            const result = await statement.executeAsync<TaskTable>(
+                {$txt: `%${txt}%`}
+            );
+            const list = await result.getAllAsync();
+            return list
+        } catch (error) {
+            throw error;
+        }finally{
+            await statement.finalizeSync()
+        }
     }
-    */
 
-    return { create };
+    return { create, search };
 
 }
