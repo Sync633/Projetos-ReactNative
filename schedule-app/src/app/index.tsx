@@ -1,6 +1,9 @@
 import { TaskTable, useTaskTable } from "@/database/useTasksTable";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { View, Text, TextInput, Alert, Button, FlatList } from "react-native"
+import { Alert, Button, FlatList, Text, TextInput, View } from "react-native";
+
 
 export default function Home(){
 
@@ -60,9 +63,18 @@ export default function Home(){
                 data={tasks}
                 keyExtractor={(item)=>String(item.id)}
                 renderItem={({item})=>
-                    <Text>
-                        {item.id} - {item.description} - {item.date}
-                    </Text>
+                    <View className="flex-row justify-between">
+                        <Text>
+                            {item.id} - {item.description} - {item.date}
+                        </Text>
+
+                        <FontAwesome
+                            name="trash-o"
+                            size={24}
+                            color="black"
+                            onPress={()=>router.push({pathname:'./excluir/[id]', params:{id:item.id}})}
+                        />
+                    </View>
                 }
             />
         </View>
