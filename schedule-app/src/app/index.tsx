@@ -1,5 +1,6 @@
 import { TaskTable, useTaskTable } from "@/database/useTasksTable";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { FontAwesome6 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Button, FlatList, Text, TextInput, View } from "react-native";
@@ -36,7 +37,7 @@ export default function Home(){
     },[textSearch])
 
     return (
-        <View style={{flex:1, justifyContent:'center', alignItems:'center', marginTop:20}}>
+        <View className="flex flex-1 justify-center items-center">
             <Text>My Schedules - Task</Text>
 
             <View>
@@ -59,24 +60,23 @@ export default function Home(){
                 <TextInput placeholder="Pesquisar Tarefa" onChangeText={setTextSearch} />
             </View>
 
-            <FlatList
-                data={tasks}
-                keyExtractor={(item)=>String(item.id)}
-                renderItem={({item})=>
-                    <View className="flex-row justify-between">
-                        <Text>
-                            {item.id} - {item.description} - {item.date}
-                        </Text>
+            <View className="h-80 bg-slate-100">
+                <FlatList
+                    data={tasks}
+                    keyExtractor={(item)=>String(item.id)}
+                    renderItem={({item})=>
+                        <View className="flex-row justify-between">
+                            <Text>
+                                {item.id} - {item.description} - {item.date}
+                            </Text>
 
-                        <FontAwesome
-                            name="trash-o"
-                            size={24}
-                            color="black"
-                            onPress={()=>router.push({pathname:'./excluir/[id]', params:{id:item.id}})}
-                        />
-                    </View>
-                }
-            />
+                            <FontAwesome6 name="edit" size={24} color="black" onPress={()=>router.push({pathname:'./update/[id]', params:{id:item.id}})}/>
+
+                            <FontAwesome name="trash-o" size={24} color="black" onPress={()=>router.push({pathname:'./excluir/[id]', params:{id:item.id}})}/>
+                        </View>
+                    }
+                />
+            </View>
         </View>
     );
 }
