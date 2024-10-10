@@ -60,19 +60,19 @@ export default function Home(){
                 <TextInput placeholder="Pesquisar Tarefa" onChangeText={setTextSearch} />
             </View>
 
-            <View className="h-80 bg-slate-100">
+            <View className="h-80 w-11/12 bg-slate-100">
                 <FlatList
                     data={tasks}
                     keyExtractor={(item)=>String(item.id)}
                     renderItem={({item})=>
-                        <View className="flex-row justify-between">
+                        <View className="flex-row justify-between m-1 mb-3">
                             <Text>
                                 {item.id} - {item.description} - {item.date}
                             </Text>
-
-                            <FontAwesome6 name="edit" size={24} color="black" onPress={()=>router.push({pathname:'./update/[id]', params:{id:item.id}})}/>
-
-                            <FontAwesome name="trash-o" size={24} color="black" onPress={()=>router.push({pathname:'./excluir/[id]', params:{id:item.id}})}/>
+                            <View className="flex-row justify-between">
+                                <FontAwesome6 name="edit" size={24} color="black" onPress={()=>router.push({pathname:'./update/[id]', params:{id:item.id}})}/>
+                                <FontAwesome name="trash-o" size={24} color="black" onPress={()=>router.push({pathname:'./excluir/[id]', params:{id:item.id}})}/>
+                            </View>
                         </View>
                     }
                 />
