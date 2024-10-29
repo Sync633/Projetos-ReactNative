@@ -69,7 +69,7 @@ export default function Home(){
                             <Text>
                                 {item.id} - {item.description} - {item.date}
                             </Text>
-                            <View className="flex-row justify-between">
+                            <View className="flex-row">
                                 <FontAwesome6 name="edit" size={24} color="black" onPress={()=>router.push({pathname:'./update/[id]', params:{id:item.id}})}/>
                                 <FontAwesome name="trash-o" size={24} color="black" onPress={()=>router.push({pathname:'./excluir/[id]', params:{id:item.id}})}/>
                             </View>
